@@ -44,7 +44,7 @@ public class GenericRequest<T extends EntityPath> {
 
     private String startGenerate(RequestCommand command, String path) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(command.name()).append(" ").append(" ").append(version);
+        stringBuilder.append(command.name()).append(" ").append(path).append(" ").append(version);
         return String.valueOf(stringBuilder);
     }
 
@@ -74,23 +74,20 @@ public class GenericRequest<T extends EntityPath> {
     }
 
     String postEntity(T[] t) {
-        String startLine = startGenerate(RequestCommand.POST, t[0].getPath()+ "--- create from array");
+        String startLine = startGenerate(RequestCommand.POST, t[0].getPath() + "--- create from array");
         headers.put("startLine", startLine);
-        return webClient.POST(headers,t);
+        return webClient.POST(headers, t);
     }
+
     String putEntity(T t) {
         String startLine = startGenerate(RequestCommand.POST, t.getPath());
         headers.put("startLine", startLine);
         return webClient.PUT(headers, t);
     }
 
-    String deleteEntity(T t) {
-        String startLine = startGenerate(RequestCommand.POST, t.getPath());
+    String deleteEntity(String path,String apiKey) {
+        String startLine = startGenerate(RequestCommand.POST, path);
         headers.put("startLine", startLine);
-        return webClient.PUT(headers, t);
+        return webClient.DELETE(headers,apiKey);
     }
-
-
-
-
 }
