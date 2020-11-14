@@ -10,48 +10,67 @@ public class RequestService {
     public static Scanner scanner = new Scanner(System.in);
 
     public static long getLongId() {
-        System.out.println("Enter Id");
-
+        boolean idProvide = false;
         long id = 0;
-        try {
-            id = scanner.nextLong();
-            return id;
-        } catch (Exception e) {
-            System.out.println("Wrong input format");
-            getLongId();
+        while (!idProvide) {
+            try {
+                System.out.println("Enter Id long");
+                id = scanner.nextLong();
+                idProvide = true;
+            } catch (Exception e) {
+                System.out.println("Wrong input format try again");
+                getLongId();
+            }
         }
         return id;
     }
 
     public static PetStatus getPetStatus() {
-        System.out.println("Enter pet status");
-        String status = scanner.nextLine();
-        Optional<PetStatus> petStatus = PetStatus.getPetStatus(status);
-        return petStatus.orElseThrow(() -> new IllegalArgumentException("PetStatus value is wrong, try one more time"));
+        PetStatus petStatus = null;
+        boolean petStatusIs = false;
+        while (!petStatusIs) {
+            System.out.println("Enter pet status");
+            String status = scanner.nextLine();
+            try {
+                petStatus = PetStatus.getPetStatus(status).orElseThrow(() -> new IllegalArgumentException("incorrect input"));
+                petStatusIs = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return petStatus;
     }
 
     public static EntityType selectEntity() {
-        System.out.println(" Chose Entity: \n (pet) \n (user) \n (order)()");
+        boolean entityIs = false;
         EntityType entityType = null;
-        try {
-            entityType = entityType.getType(scanner.nextLine()).orElseThrow(() -> new IllegalArgumentException("Wrong input, try again"));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            selectEntity();
+        while (!entityIs) {
+            System.out.println(" Chose Entity: \n (pet) \n (user) \n (order) \n exit");
+            String entity = scanner.next();
+            try {
+                entityType = entityType.getType(entity).orElseThrow(() -> new IllegalArgumentException("Wrong input, try again"));
+                entityIs = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return entityType;
     }
 
     public static RequestCommand selectCommand() {
-        System.out.println("Select command: \n get \n put \n post \n delete");
-        RequestCommand requestCommand = null;
-        try {
-            requestCommand = requestCommand.getCommand(scanner.nextLine()).orElseThrow(() -> new IllegalArgumentException("Wrong input, try again"));
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            selectCommand();
+        boolean commandIs = false;
+        RequestCommand command = null;
+        while (!commandIs) {
+            System.out.println("Select command: \n get \n put \n post \n delete \n exit ");
+            String commandString = scanner.next();
+            try {
+                command = RequestCommand.getCommand(commandString).orElseThrow(() -> new IllegalArgumentException("Wrong input, try again"));
+                commandIs = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        return requestCommand;
+        return command;
     }
 
     public static boolean exitCommand() {

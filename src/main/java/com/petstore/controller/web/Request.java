@@ -12,5 +12,5 @@ public interface Request<T> {
     List<T> GETtList(Map<String ,String> headers, Type tClass);
     String POST(Map<String ,String> headers, T t);
     String PUT(Map<String ,String> headers, T t);
-   String DELETE(Map<String ,String> headers,String apiKey);
+   ApiResponse DELETE(Map<String ,String> headers, String apiKey);
 }

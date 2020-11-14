@@ -36,17 +36,11 @@ public class Pet implements EntityPath {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public String getName() {
         return name;
@@ -60,9 +54,6 @@ public class Pet implements EntityPath {
         return photoUrls;
     }
 
-    public void setPhotoUrls(String[] photoUrls) {
-        this.photoUrls = photoUrls;
-    }
 
     public Tag[] getTags() {
         return tags;
@@ -76,9 +67,6 @@ public class Pet implements EntityPath {
         return status;
     }
 
-    public void setStatus(PetStatus status) {
-        this.status = status;
-    }
 
 
 }

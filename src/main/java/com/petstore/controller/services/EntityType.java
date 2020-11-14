@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum EntityType {
-    PET("pet"),ORDER("order"),USER("user");
+    PET("pet"),ORDER("order"),USER("user"),EXIT("exit");
 
     private String type;
 

@@ -4,10 +4,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum RequestCommand {
-    GET("get"),POST("post"),PUT("put"),DELETE("delete");
+    GET("get"), POST("post"), PUT("put"), DELETE("delete"), EXIT("exit");
 
     private String command;
-
 
 
     RequestCommand(String command) {
@@ -18,9 +17,9 @@ public enum RequestCommand {
         return command;
     }
 
-    public static Optional<RequestCommand> getCommand(String command){
+    public static Optional<RequestCommand> getCommand(String command) {
         return Arrays.stream(RequestCommand.values())
-                .filter(enumValue->enumValue.getCommand().equals(command))
+                .filter(enumValue -> enumValue.getCommand().equals(command))
                 .findAny();
     }
 }

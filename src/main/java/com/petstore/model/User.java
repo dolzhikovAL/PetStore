@@ -1,6 +1,6 @@
 package com.petstore.model;
 
-public class User {
+public class User implements EntityPath{
     private long id;
     private String userName;
     private String fistName;
@@ -9,6 +9,7 @@ public class User {
     private String password;
     private String phone;
     private int userStatus;
+    private String path;
 
     public User() {
     }
@@ -28,6 +29,18 @@ public class User {
     public String toString(){
         return "User  id -- " + getId() +  ", firstName -- " + getFistName() + ", lastName -- " + getLastName() +
                 ", email -- " +getEmail()+  ", phone --" +getPhone() +", userStatus --" +getUserStatus();
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @Override
+    public String getPath() {
+        if (this.path==null){
+            return "/v2/user";
+        }else
+        return this.path;
     }
 
     public long getId() {
@@ -93,4 +106,6 @@ public class User {
     public void setUserStatus(int userStatus) {
         this.userStatus = userStatus;
     }
+
+
 }

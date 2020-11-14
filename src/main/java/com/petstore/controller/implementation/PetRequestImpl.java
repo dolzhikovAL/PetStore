@@ -2,10 +2,7 @@ package com.petstore.controller.implementation;
 
 import com.google.gson.reflect.TypeToken;
 import com.petstore.controller.services.RequestService;
-import com.petstore.model.Category;
-import com.petstore.model.EntityPath;
-import com.petstore.model.Pet;
-import com.petstore.model.PetStatus;
+import com.petstore.model.*;
 
 import java.util.Comparator;
 import java.util.List;
@@ -36,8 +33,7 @@ public class PetRequestImpl<T extends EntityPath> extends GenericRequest<Pet> im
             case "status": {
                 petStatus = RequestService.getPetStatus();
                 path = "/v2/pet/findByStatus?status" + petStatus.getStatus();
-                List<Pet> pets = getListEntity(path, new TypeToken<List<Pet>>() {
-                }.getType());
+                List<Pet> pets = getListEntity(path, new TypeToken<List<Pet>>(){}.getType());
                 pets.stream().sorted(Comparator.comparingLong(p -> p.getId()))
                         .forEach(System.out::println);
                 break;
@@ -81,17 +77,16 @@ public class PetRequestImpl<T extends EntityPath> extends GenericRequest<Pet> im
         long id = RequestService.getLongId();
         String path=new Pet().getPath() +"/" +id;
         System.out.println();
-        String s =deleteEntity(path,apiKey);
-        System.out.println(s);
+        ApiResponse response =deleteEntity(path,apiKey);
+        System.out.println(response);
     }
 
     private Pet inputPet(){
-        Pet pet=new Pet();
         System.out.println("Enter pet category");
         String categoryName=scanner.nextLine();
         System.out.println("Enter Pet name");
         String petName=scanner.nextLine();
-        pet= new Pet(0,petName,new Category(0,categoryName),null,null,PetStatus.AVAILABLE);
+       Pet pet= new Pet(0,petName,new Category(0,categoryName),null,null,PetStatus.AVAILABLE);
         return pet;
     }
 }

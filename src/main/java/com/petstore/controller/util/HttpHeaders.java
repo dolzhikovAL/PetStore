@@ -28,6 +28,7 @@ public enum HttpHeaders {
     }
 
     public String getDefaultValue() {
+        setDefValue();
         return defaultValue;
     }
 
@@ -35,12 +36,12 @@ public enum HttpHeaders {
         this.defaultValue = defaultValue;
     }
 
-    private void setDefValue(){
+    private void setDefValue() {
         defaultValue = name.equals(HOST.name) ? "petstore.swagger.io" :
                 name.equals(CONNECTION.name) ? "keep-alive" :
                         name.equals(ACCEPT.name) ? "application json" :
                                 name.equals(USER_AGENT.name) ? "" :
-                                        name.equals(REFERER.name) ? "http://petstore.swagger.io":
+                                        name.equals(REFERER.name) ? "http://petstore.swagger.io" :
                                                 name.equals(ACCEPT_ENCODING.name) ? "gzip ,deflate" :
                                                         name.equals(ACCEPT_LANGUAGE.name) ? "en-US,en;q=0.9" : //?
                                                                 name.equals(CONTENT_TYPE) ? "application/json" :
